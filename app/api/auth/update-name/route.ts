@@ -1,0 +1,24 @@
+export async function PATCH(request: Request) {
+    const body = await request.json();
+
+    if (!body.name) {
+        return Response.json({error: 'Missing required fields'}, {status: 400});
+    }
+
+    const response = await fetch(`${process.env.AUTH0_AUDIENCE}users/${body.userId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: body.name,
+            connection: 'Simple-Dashboard-Connection'
+        })
+    });
+    return Response.json(JSON.stringify(response));
+}
+
+
+
