@@ -1,7 +1,10 @@
 import { withPageAuthRequired, getSession, updateSession} from '@auth0/nextjs-auth0';
 import UpdateNameButton from "@/app/components/client/update-name-button";
 import OnChangeInput from "@/app/components/client/on-change-input";
-import PasswordUpdateComponent from "@/app/components/client/password-update-component";
+import dynamic from "next/dynamic";
+const PasswordUpdateComponent = dynamic(
+    () => import("@/app/components/client/password-update-component"), {ssr: false}
+)
 export default withPageAuthRequired(async function Dashboard() {
     // @ts-ignore
     let session = await getSession();

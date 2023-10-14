@@ -4,37 +4,30 @@ export async function PATCH(request: Request) {
         return Response.json({error: 'Missing required fields'}, {status: 400});
     }
 
-    // check if new passwords match
     if (body.newPassword !== body.newPasswordAgain) {
         return Response.json({error: 'New passwords do not match'}, {status: 400});
     }
 
-    // check if new password is at least 8 characters long
     if (body.newPassword.length < 8) {
         return Response.json({error: 'New password must be at least 8 characters long'}, {status: 400});
     }
 
-    // check if new password does not contain at least 1 number
     if (!/\d/.test(body.newPassword)) {
         return Response.json({error: 'New password must contain at least 1 number'}, {status: 400});
     }
 
-    // check if new password does not contain at least 1 uppercase letter
     if (!/[A-Z]/.test(body.newPassword)) {
         return Response.json({error: 'New password must contain at least 1 uppercase letter'}, {status: 400});
     }
 
-    // check if new password does not contain at least 1 lowercase letter
     if (!/[a-z]/.test(body.newPassword)) {
         return Response.json({error: 'New password must contain at least 1 lowercase letter'}, {status: 400});
     }
 
-    // check if new password does not contain at least 1 special character
     if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(body.newPassword)) {
         return Response.json({error: 'New password must contain at least 1 special character'}, {status: 400});
     }
 
-    // get check old password in auth0 by trying to request a token
     const passResponse = await fetch(`${process.env.AUTH0_DOMAIN}oauth/token`, {
         method: 'POST',
         headers: {
