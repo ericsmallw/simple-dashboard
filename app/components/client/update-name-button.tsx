@@ -3,16 +3,18 @@ import BasicButton from "@/app/components/client/basic-button";
 
 export default function UpdateNameButton(props: any) {
     const handleUpdateName = async () => {
-        console.log(props.name)
+        const name = sessionStorage.getItem('user-name');
         const response = await fetch('/api/auth/update-name', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: props.name, userId: props.userId })
+            body: JSON.stringify({ name, userId: props.userId })
         });
 
-        if (!response.ok) {
+        if (response.ok) {
+            props.updateSession(name);
+        } else {
             alert('Error Updating Name');
         }
     }

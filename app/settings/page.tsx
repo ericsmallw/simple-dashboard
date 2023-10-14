@@ -5,10 +5,10 @@ export default withPageAuthRequired(async function Dashboard() {
     // @ts-ignore
     let session = await getSession();
 
-    async function updateUser ($event: any) {
+    async function updateAuth0Session(name: string) {
         'use server'
         if (session) {
-            const updates = {name: $event};
+            const updates = {name};
             await updateSession({...session, user: {...session.user, ...updates}});
         }
     }
@@ -24,9 +24,9 @@ export default withPageAuthRequired(async function Dashboard() {
                 <div className="col-6">
                     <h4>Name</h4>
                     <div className="input-group mb-3">
-                        <OnChangeInput keyUpFunction={updateUser} defaultValue={session?.user.name}/>
+                        <OnChangeInput defaultValue={session?.user.name}/>
                     </div>
-                    <UpdateNameButton userId={session?.user.sub} name={session?.user.name} />
+                    <UpdateNameButton userId={session?.user.sub} updateSession={updateAuth0Session} />
                 </div>
                 <div className="col-6">
                     <h4>Password</h4>

@@ -6,7 +6,7 @@ export default function OnChangeInput(props: any) {
             <input
                 onKeyUp={($event) => {
                     // @ts-ignore
-                    props.keyUpFunction($event.target.value)
+                    sessionStorage.setItem('user-name', $event.target.value);
                 }}
                 defaultValue={props.defaultValue}
                 className="form-control"
