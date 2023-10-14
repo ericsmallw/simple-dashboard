@@ -1,6 +1,7 @@
 import { withPageAuthRequired, getSession, updateSession} from '@auth0/nextjs-auth0';
 import UpdateNameButton from "@/app/components/client/update-name-button";
 import OnChangeInput from "@/app/components/client/on-change-input";
+import PasswordUpdateComponent from "@/app/components/client/password-update-component";
 export default withPageAuthRequired(async function Dashboard() {
     // @ts-ignore
     let session = await getSession();
@@ -28,15 +29,7 @@ export default withPageAuthRequired(async function Dashboard() {
                     </div>
                     <UpdateNameButton userId={session?.user.sub} updateSession={updateAuth0Session} />
                 </div>
-                <div className="col-6">
-                    <h4>Password</h4>
-                    <div className="input-group mb-3">
-                        <input id="oldPassword" type="password" className="form-control" placeholder="Old Password" aria-label="Password" aria-describedby="basic-addon1" />
-                    </div>
-                    {/*<div className="input-group mb-3"><input id="newPassword1" type="password" className="form-control" placeholder="New Password" aria-label="Password" aria-describedby="basic-addon1" /></div>*/}
-                    {/*<div className="input-group mb-3"><input id="newPassword2" type="password" className="form-control" placeholder="Retype New Password" aria-label="Password" aria-describedby="basic-addon1"/></div>*/}
-                    <button className="btn btn-primary">Change Password</button>
-                </div>
+                <PasswordUpdateComponent email={session?.user.email} userId={session?.user.sub}/>
             </div>
         </div>
     )
