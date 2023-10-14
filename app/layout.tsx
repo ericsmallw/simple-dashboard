@@ -21,7 +21,12 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
     // @ts-ignore
-    let { user } = await getSession();
+    let { user } = await fetch(`/api/auth/user-details?userId=${user.sub}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        });
 
     return (
     <html lang="en">
