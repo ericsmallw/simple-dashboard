@@ -16,7 +16,10 @@ export async function PATCH(request: Request) {
             connection: 'Simple-Dashboard-Connection'
         })
     });
-    return Response.json(JSON.stringify(response));
+
+    const res = await response.json();
+
+    return Response.json(res, {status: res.statusCode});
 }
 
 

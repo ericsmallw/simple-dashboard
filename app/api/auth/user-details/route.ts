@@ -3,7 +3,7 @@ import {useSearchParams} from "next/navigation";
 export async function GET(request: Request) {
     const url = new URL(request.url);
     const userId = url.searchParams.get("userId");
-
+    console.log(userId);
     const response = await fetch(`${process.env.AUTH0_AUDIENCE}users/${userId}`, {
         method: 'GET',
         headers: {
@@ -14,7 +14,7 @@ export async function GET(request: Request) {
         }
     });
 
-   const resBody = await response.json();
+   const res = await response.json();
 
-    return Response.json(resBody);
+    return Response.json(res, {status: res.statusCode});
 }

@@ -2,6 +2,6 @@
 ``
 export default function BasicButton(props: any) {
     return (
-        <button onClick={props.eventHandler}>{props.buttonText}</button>
+        <button className={props.class} onClick={props.eventHandler}>{props.buttonText}</button>
     );
 }

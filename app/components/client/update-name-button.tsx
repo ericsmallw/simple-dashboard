@@ -3,21 +3,16 @@ import BasicButton from "@/app/components/client/basic-button";
 
 export default function UpdateNameButton(props: any) {
     const handleUpdateName = async () => {
+        console.log(props.name)
         const response = await fetch('/api/auth/update-name', {
-            method: 'POST',
+            method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ userId: props.userId })
+            body: JSON.stringify({ name: props.name, userId: props.userId })
         });
 
-        if (response.ok) {
-            const res = await response.json();
-            console.log(res);
-            alert('Email sent!');
-            // refresh the page
-            window.location.reload();
-        } else {
+        if (!response.ok) {
             alert('Error Updating Name');
         }
     }
@@ -26,6 +21,7 @@ export default function UpdateNameButton(props: any) {
         <BasicButton
             eventHandler={handleUpdateName}
             buttonText={"Update Name"}
+            class={"btn btn-primary"}
         />
     );
 }

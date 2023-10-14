@@ -1,8 +1,7 @@
 'use client';
 import BasicButton from "@/app/components/client/basic-button";
 
-export default function
-    ResendEmailVerificationButton(props: any) {
+export default function ResendEmailVerificationButton(props: any) {
     const handleResendEmailVerification = async () => {
         const response = await fetch('/api/auth/resend-verification-email', {
             method: 'POST',

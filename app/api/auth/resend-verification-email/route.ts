@@ -20,5 +20,7 @@ export async function POST(request: Request) {
         body: JSON.stringify(data)
     });
 
-    return Response.json(JSON.stringify(response));
+    const res = await response.json();
+
+    return Response.json(res, {status: res.statusCode});
 }
