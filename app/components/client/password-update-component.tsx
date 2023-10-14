@@ -6,10 +6,34 @@ export default  function PasswordUpdateComponent(props: any) {
     let [newPassword1, setNewPassword1] = useState('');
     let [newPassword2, setNewPassword2] = useState('');
 
-    // event handler for password update
     const handlePasswordUpdate = async () => {
         if (newPassword1 !== newPassword2) {
             alert('Passwords do not match.');
+            return;
+        }
+
+        if (newPassword1.length < 8) {
+            alert('Password must be at least 8 characters long.');
+            return;
+        }
+
+        if (!/\d/.test(newPassword1)) {
+            alert('Password must contain at least one number.');
+            return;
+        }
+
+        if (!/[a-z]/.test(newPassword1)) {
+            alert('Password must contain at least one lower case letter.');
+            return;
+        }
+
+        if (!/[A-Z]/.test(newPassword1)) {
+            alert('Password must contain at least one upper case letter.');
+            return;
+        }
+
+        if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword1)) {
+            alert('Password must contain at least one special character.');
             return;
         }
 
@@ -73,7 +97,12 @@ export default  function PasswordUpdateComponent(props: any) {
                     }}
                 />
             </div>
-            <button className="btn btn-primary" onClick={handlePasswordUpdate}>Change Password</button>
+            <button
+                className="btn btn-primary"
+                onClick={handlePasswordUpdate}
+            >
+                Change Password
+            </button>
         </div>
     )
 }
