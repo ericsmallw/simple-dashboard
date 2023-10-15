@@ -45,18 +45,19 @@ export default function UserTableComponent(props: any) {
             </div>
             <div className="row" style={{paddingTop: '30px'}}>
                 <h3>Stats</h3>
-                <div className="col-4">
+                <div className="col-4" style={{textAlign: 'center'}}>
                     Total Number of Users Signed Up: <b>{users.total}</b>
                 </div>
-                <div className="col-4">
-                    Users With Active Sessions Today: <b>{usersLast24HoursTotal}</b>
+                <div className="col-4" style={{textAlign: 'center'}}>
+                    Users With Active Sessions in the Last 24 Hours: <b>{usersLast24HoursTotal}</b>
                 </div>
-                <div className="col-4">
+                <div className="col-4" style={{textAlign: 'center'}}>
                     Users With Active Sessions in the Last 7 days: <b>{usersLast7DaysTotal}</b>
                 </div>
             </div>
             <div className="row">
                 <div className="col" style={{paddingTop: '30px'}}>
+                    <h3>User Details</h3>
                     <table  className="table table-dark">
                         <thead>
                         <tr>
