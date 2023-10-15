@@ -94,19 +94,21 @@ export default function UserTableComponent(props: any) {
                     <nav aria-label="Page navigation example">
                         <ul className="pagination">
                             {
-                                [...Array(Math.ceil(users.total / 50))].map((e, i) => {
-                                    return (
-                                        <li key={i} className="page-item">
-                                            <a
-                                                className="page-link"
-                                                style={{cursor: 'pointer'}}
-                                                onClick={() => getUsers(i)}
-                                            >
-                                                {i + 1}
-                                            </a>
-                                        </li>
-                                    )
-                                })
+                                users.total
+                                    ? [...Array(Math.ceil(users.total / 50))].map((e, i) => {
+                                            return (
+                                                <li key={i} className="page-item">
+                                                    <a
+                                                        className="page-link"
+                                                        style={{cursor: 'pointer'}}
+                                                        onClick={() => getUsers(i)}
+                                                    >
+                                                        {i + 1}
+                                                    </a>
+                                                </li>
+                                            )
+                                        })
+                                    : ""
                             }
                         </ul>
                     </nav>
