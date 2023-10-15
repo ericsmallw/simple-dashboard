@@ -89,7 +89,7 @@ export default  function PasswordUpdateComponent(props: any) {
                 <input
                     type="password"
                     className="form-control"
-                    placeholder="Retype New Password"
+                    placeholder="Re-enter New Password"
                     aria-label="Password"
                     aria-describedby="basic-addon1"
                     onChange={($event) => {
