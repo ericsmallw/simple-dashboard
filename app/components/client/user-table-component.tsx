@@ -63,6 +63,7 @@ export default function UserTableComponent(props: any) {
                         <tr>
                             <th scope="col">Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Sign Up Date</th>
                             <th scope="col">Number of Logins</th>
                             <th scope="col">Time of Last Session</th>
                         </tr>
@@ -74,6 +75,7 @@ export default function UserTableComponent(props: any) {
                                     <tr key={user.user_id}>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
+                                        <td>{moment(user.created_at).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                         <td>{user.logins_count}</td>
                                         <td>
                                             {
