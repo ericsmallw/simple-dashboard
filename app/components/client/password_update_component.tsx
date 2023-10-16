@@ -16,7 +16,7 @@ export class PasswordProps {
  * @param {PasswordProps} props
  * @constructor
  */
-export default function PasswordUpdateComponent(props: PasswordProps) {
+export default function Password_update_component(props: PasswordProps) {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword1, setNewPassword1] = useState('');
   const [newPassword2, setNewPassword2] = useState('');

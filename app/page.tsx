@@ -1,7 +1,7 @@
-import UserTableComponent from '@/app/components/client/user-table-component';
+import UserTableComponent from '@/app/components/client/user_table_component';
 import {withPageAuthRequired, getSession, Session} from '@auth0/nextjs-auth0';
 // eslint-disable-next-line max-len
-import ResendEmailVerificationButton from '@/app/components/client/resend-email-verification-button';
+import ResendEmailVerificationButton from '@/app/components/client/resend_email_verification_button';
 
 /**
  * Dashboard

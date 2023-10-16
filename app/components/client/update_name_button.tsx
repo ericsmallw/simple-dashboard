@@ -1,5 +1,5 @@
 'use client';
-import BasicButton from '@/app/components/client/basic-button';
+import BasicButton from '@/app/components/client/basic_button';
 
 /**
  * UpdateNameButtonProps

@@ -3,10 +3,10 @@ import {
   getSession,
   updateSession,
 } from '@auth0/nextjs-auth0';
-import UpdateNameButton from '@/app/components/client/update-name-button';
-import OnChangeInput from '@/app/components/client/on-change-input';
+import UpdateNameButton from '@/app/components/client/update_name_button';
+import OnChangeInput from '@/app/components/client/on_change_input';
 import dynamic from 'next/dynamic';
-import {PasswordProps} from '../components/client/password-update-component';
+import {PasswordProps} from '../components/client/password_update_component';
 
 const componentUri = '@/app/components/client/password-update-component';
 const PasswordUpdateComponent = dynamic<PasswordProps>(
