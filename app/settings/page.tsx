@@ -19,7 +19,7 @@ const PasswordUpdateComponent = dynamic<PasswordProps>(
  */
 export default withPageAuthRequired(async function Dashboard() {
   // @ts-ignore
-  const session: Session = await getSession();
+  const session = await getSession();
 
   /**
    * updateAuth0Session
