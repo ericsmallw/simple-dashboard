@@ -1,7 +1,29 @@
 'use client';
-``
-export default function BasicButton(props: any) {
-    return (
-        <button className={props.class} onClick={props.eventHandler}>{props.buttonText}</button>
-    );
+
+/**
+ * ButtonProps
+ * @param {string} class CSS class string
+ * @param {any} eventHandler
+ * @param {string} buttonText
+ */
+export class ButtonProps {
+  class: string = '';
+  eventHandler: any = '';
+  buttonText: string = '';
+}
+
+/**
+ * BasicButton
+ * @param {ButtonProps} props
+ * @constructor
+ */
+export default function BasicButton(props: ButtonProps) {
+  return (
+    <button
+      className={props.class}
+      onClick={props.eventHandler}
+    >
+      {props.buttonText}
+    </button>
+  );
 }

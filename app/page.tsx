@@ -1,24 +1,22 @@
-import UserTableComponent from "@/app/components/client/user-table-component";
+import UserTableComponent from '@/app/components/client/user-table-component';
+import {withPageAuthRequired, getSession} from '@auth0/nextjs-auth0';
+// eslint-disable-next-line max-len
+import ResendEmailVerificationButton from '@/app/components/client/resend-email-verification-button';
 
-const moment =  require('moment');
-import { withPageAuthRequired, getSession} from '@auth0/nextjs-auth0';
-import ResendEmailVerificationButton from "@/app/components/client/resend-email-verification-button";
-
+/**
+ * Dashboard
+ * @constructor
+ */
 export default withPageAuthRequired(async function Dashboard() {
-    // @ts-ignore
-    let { user } = await getSession();
+  const session = await getSession();
 
-    let response = await fetch(`${process.env.AUTH0_BASE_URL}/api/auth/users?page=0`);
-    let users = await response.json();
-
-    return (
-        <>
-            {
-                user.email_verified
-                    ? <UserTableComponent />
-                    :<ResendEmailVerificationButton userId={user.sub}/>
-            }
-      </>
-
-  )
-}, { returnTo: '/api/auth/login' })
+  return (
+    <>
+      {
+        session?.user.email_verified ?
+            <UserTableComponent />:
+            <ResendEmailVerificationButton userId={session?.user.sub}/>
+      }
+    </>
+  );
+}, {returnTo: '/api/auth/login'});
