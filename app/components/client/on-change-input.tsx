@@ -5,7 +5,7 @@
  * @param {string} defaultValue Default value for input
  */
 export class InputProps {
-  defaultValue: string = '';
+  defaultValue = '';
 }
 
 /**

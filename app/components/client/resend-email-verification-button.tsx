@@ -6,7 +6,7 @@ import BasicButton from '@/app/components/client/basic-button';
  * @param {string} userId
  */
 export class ResendEmailVerificationButtonProps {
-  userId: string = '';
+  userId = '';
 }
 
 /**

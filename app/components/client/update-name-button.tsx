@@ -6,8 +6,8 @@ import BasicButton from '@/app/components/client/basic-button';
  * @param {string} userId
  */
 export class UpdateNameButtonProps {
-  userId: string = '';
-  updateSession: any = '';
+  userId = '';
+  updateSession: any;
 }
 
 /**

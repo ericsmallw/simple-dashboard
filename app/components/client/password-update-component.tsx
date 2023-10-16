@@ -7,8 +7,8 @@ import {useState} from 'react';
  * @param {string} email
  */
 export class PasswordProps {
-  userId: string = '';
-  email: string = '';
+  userId = '';
+  email = '';
 }
 
 /**

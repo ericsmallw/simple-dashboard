@@ -7,9 +7,9 @@
  * @param {string} buttonText
  */
 export class ButtonProps {
-  class: string = '';
-  eventHandler: any = '';
-  buttonText: string = '';
+  class = '';
+  eventHandler: any;
+  buttonText= '';
 }
 
 /**
