@@ -4,12 +4,12 @@
  * @constructor
  */
 export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const page = url.searchParams.get('page') || 0;
-  const uri = process.env.AUTH0_AUDIENCE +
+  const PARSED_URL = new URL(request.url);
+  const PAGE = PARSED_URL.searchParams.get('page') || 0;
+  const URI = process.env.AUTH0_AUDIENCE +
       'users?q=&search_engine=v3&page=' +
-      page + '&include_totals=true';
-  const response = await fetch(uri, {
+      PAGE + '&include_totals=true';
+  const RESPONSE = await fetch(URI, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     },
   });
 
-  const res = await response.json();
+  const RESPONSE_JSON = await RESPONSE.json();
 
-  return Response.json(res, {status: res.statusCode});
+  return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
 }

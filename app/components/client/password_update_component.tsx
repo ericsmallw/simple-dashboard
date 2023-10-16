@@ -16,62 +16,66 @@ export class PasswordProps {
  * @param {PasswordProps} props
  * @constructor
  */
-export default function Password_update_component(props: PasswordProps) {
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword1, setNewPassword1] = useState('');
-  const [newPassword2, setNewPassword2] = useState('');
+export default function PasswordUpdateComponent(props: PasswordProps) {
+  const [OLD_PASSWORD, setOldPassword] = useState('');
+  const [NEW_PASSWORD_1, setNewPassword1] = useState('');
+  const [NEW_PASSWORD_2, setNewPassword2] = useState('');
 
-  const handlePasswordUpdate = async () => {
-    if (newPassword1 !== newPassword2) {
+  /**
+   * handlePasswordUpdate
+   * @return {Promise<void>}
+   */
+  async function handlePasswordUpdate() {
+    if (NEW_PASSWORD_1 !== NEW_PASSWORD_2) {
       alert('Passwords do not match.');
       return;
     }
 
-    if (newPassword1.length < 8) {
+    if (NEW_PASSWORD_1.length < 8) {
       alert('Password must be at least 8 characters long.');
       return;
     }
 
-    if (!/\d/.test(newPassword1)) {
+    if (!/\d/.test(NEW_PASSWORD_1)) {
       alert('Password must contain at least one number.');
       return;
     }
 
-    if (!/[a-z]/.test(newPassword1)) {
+    if (!/[a-z]/.test(NEW_PASSWORD_1)) {
       alert('Password must contain at least one lower case letter.');
       return;
     }
 
-    if (!/[A-Z]/.test(newPassword1)) {
+    if (!/[A-Z]/.test(NEW_PASSWORD_1)) {
       alert('Password must contain at least one upper case letter.');
       return;
     }
 
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(newPassword1)) {
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(NEW_PASSWORD_1)) {
       alert('Password must contain at least one special character.');
       return;
     }
 
-    const response = await fetch('/api/auth/reset-password', {
+    const RESPONSE = await fetch('/api/auth/reset_password', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        oldPassword,
-        newPassword: newPassword1,
-        newPasswordAgain: newPassword2,
+        oldPassword: OLD_PASSWORD,
+        newPassword: NEW_PASSWORD_1,
+        newPasswordAgain: NEW_PASSWORD_2,
         userId: props.userId,
         email: props.email,
       }),
     });
 
-    if (response.ok) {
+    if (RESPONSE.ok) {
       alert('Password Updated Successfully!');
     } else {
       alert('Error Updating Password');
     }
-  };
+  }
 
   return (
     <div className="col-6">

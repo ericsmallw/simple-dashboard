@@ -7,7 +7,7 @@ import {UserProvider} from '@auth0/nextjs-auth0/client';
 import {getSession} from '@auth0/nextjs-auth0';
 
 // eslint-disable-next-line new-cap
-const inter = Inter({subsets: ['latin']});
+const INTER = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
   title: 'Simple Dashboard',
@@ -25,20 +25,20 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   // @ts-ignore
-  const session = await getSession();
+  const SESSION = await getSession();
 
   return (
     <html lang="en">
       <UserProvider>
-        <body className={inter.className}>
+        <body className={INTER.className}>
           <div
             className="row"
             style={{color: 'white', backgroundColor: 'black', padding: '10px'}}
           >
             {
-              session?.user?
+              SESSION?.user?
                   <>
-                    <div className="col-11">Hello {session.user.name}</div>
+                    <div className="col-11">Hello {SESSION.user.name}</div>
                     <div
                       className="col"
                       style={{textAlign: 'right'}}

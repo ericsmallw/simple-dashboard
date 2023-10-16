@@ -4,14 +4,14 @@
  * @constructor
  */
 export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const from = url.searchParams.get('from');
-  const to = url.searchParams.get('to');
-  const uri = process.env.AUTH0_AUDIENCE +
-      'users?q=last_login:[' + from + ' TO ' + to +
+  const PARSED_URL = new URL(request.url);
+  const FROM = PARSED_URL.searchParams.get('from');
+  const TO = PARSED_URL.searchParams.get('to');
+  const URI = process.env.AUTH0_AUDIENCE +
+      'users?q=last_login:[' + FROM + ' TO ' + TO +
       ']&search_engine=v3&include_totals=true';
 
-  const response = await fetch(uri, {
+  const RESPONSE = await fetch(URI, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ export async function GET(request: Request) {
     },
   });
 
-  const res = await response.json();
+  const RESPONSE_JSON = await RESPONSE.json();
 
-  return Response.json(res.total, {status: res.statusCode});
+  return Response.json(RESPONSE_JSON.total, {status: RESPONSE_JSON.statusCode});
 }

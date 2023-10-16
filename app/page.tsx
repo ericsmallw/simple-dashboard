@@ -8,14 +8,14 @@ import ResendEmailVerificationButton from '@/app/components/client/resend_email_
  * @constructor
  */
 export default withPageAuthRequired(async function Dashboard() {
-  const session = await getSession();
+  const SESSION = await getSession();
 
   return (
     <>
       {
-        session?.user.email_verified ?
+        SESSION?.user.email_verified ?
             <UserTableComponent />:
-            <ResendEmailVerificationButton userId={session?.user.sub}/>
+            <ResendEmailVerificationButton userId={SESSION?.user.sub}/>
       }
     </>
   );

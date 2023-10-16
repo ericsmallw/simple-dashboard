@@ -16,22 +16,26 @@ export class UpdateNameButtonProps {
  * @constructor
  */
 export default function UpdateNameButton(props: UpdateNameButtonProps) {
-  const handleUpdateName = async () => {
-    const name = sessionStorage.getItem('user-name');
-    const response = await fetch('/api/auth/update-name', {
+  /**
+   * handleUpdateName
+   * @return {Promise<void>}
+   */
+  async function handleUpdateName() {
+    const NAME = sessionStorage.getItem('user-name');
+    const RESPONSE = await fetch('/api/auth/update_name', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({name, userId: props.userId}),
+      body: JSON.stringify({name: NAME, userId: props.userId}),
     });
 
-    if (response.ok) {
-      props.updateSession(name);
+    if (RESPONSE.ok) {
+      props.updateSession(NAME);
     } else {
       alert('Error Updating Name');
     }
-  };
+  }
 
   return (
     <BasicButton

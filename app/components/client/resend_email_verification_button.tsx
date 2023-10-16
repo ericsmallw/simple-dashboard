@@ -17,8 +17,8 @@ export class ResendEmailVerificationButtonProps {
 export default function ResendEmailVerificationButton(
     props: ResendEmailVerificationButtonProps
 ) {
-  const handleResendEmailVerification = async () => {
-    const response = await fetch('/api/auth/resend-verification-email', {
+  let handleResendEmailVerification = async () => {
+    const RESPONSE = await fetch('/api/auth/resend_verification_email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ export default function ResendEmailVerificationButton(
       body: JSON.stringify({userId: props.userId}),
     });
 
-    if (response.ok) {
-      const res = await response.json();
-      console.log(res);
+    if (RESPONSE.ok) {
+      const RESPONSE_JSON = await RESPONSE.json();
+      console.log(RESPONSE_JSON);
       alert('Email sent!');
       window.location.href = '/api/auth/logout';
     } else {

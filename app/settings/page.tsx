@@ -8,9 +8,9 @@ import OnChangeInput from '@/app/components/client/on_change_input';
 import dynamic from 'next/dynamic';
 import {PasswordProps} from '../components/client/password_update_component';
 
-const componentUri = '@/app/components/client/password-update-component';
-const PasswordUpdateComponent = dynamic<PasswordProps>(
-    () => import(componentUri), {ssr: false}
+const COMPONENT_URI = '@/app/components/client/password-update-component';
+let PasswordUpdateComponent = dynamic<PasswordProps>(
+    () => import(COMPONENT_URI), {ssr: false}
 );
 
 /**
@@ -19,7 +19,7 @@ const PasswordUpdateComponent = dynamic<PasswordProps>(
  */
 export default withPageAuthRequired(async function Dashboard() {
   // @ts-ignore
-  const session = await getSession();
+  const SESSION = await getSession();
 
   /**
    * updateAuth0Session
@@ -27,9 +27,9 @@ export default withPageAuthRequired(async function Dashboard() {
    */
   async function updateAuth0Session(name: string) {
     'use server';
-    if (session) {
-      const updates = {name};
-      await updateSession({...session, user: {...session.user, ...updates}});
+    if (SESSION) {
+      const UPDATES = {name};
+      await updateSession({...SESSION, user: {...SESSION.user, ...UPDATES}});
     }
   }
 
@@ -45,17 +45,17 @@ export default withPageAuthRequired(async function Dashboard() {
           <h4>Name</h4>
           <div className="input-group mb-3">
             <OnChangeInput
-              defaultValue={session?.user.name}
+              defaultValue={SESSION?.user.name}
             />
           </div>
           <UpdateNameButton
-            userId={session?.user.sub}
+            userId={SESSION?.user.sub}
             updateSession={updateAuth0Session}
           />
         </div>
         <PasswordUpdateComponent
-          email={session?.user.email}
-          userId={session?.user.sub}
+          email={SESSION?.user.email}
+          userId={SESSION?.user.sub}
         />
       </div>
     </div>

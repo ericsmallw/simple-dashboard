@@ -7,15 +7,17 @@ import moment from 'moment/moment';
  * @constructor
  */
 export default function UserTableComponent() {
-  const val: any = {};
-  const [users, setUsers] = React.useState(val);
-  const [usersLast24HoursTotal, setUsersLast24HoursTotal] = React.useState(0);
-  const [usersLast7DaysTotal, setUsersLast7DaysTotal] = React.useState(0);
+  const VAL: any = {};
+  const [USERS, setUsers] = React.useState(VAL);
+  const [USERS_24_HOURS, setUsers24Hours] = React.useState(0);
+  const [USERS_7_DAYS, setUsers7Days] = React.useState(0);
 
   useEffect(() => {
-    getUsers(0);
-    getUsersLast24Hours();
-    getUsersLast7Days();
+    (async () => {
+      await getUsers(0);
+      setUsers24Hours(await getUsersLastXDays(1));
+      setUsers7Days(await getUsersLastXDays(7));
+    })();
   }, []);
 
   /**
@@ -23,35 +25,23 @@ export default function UserTableComponent() {
    * @param {number} page Page Number For User Search
    */
   async function getUsers(page: number) {
-    const response = await fetch(`/api/auth/users?page=${page}`);
-    const users = await response.json();
-    setUsers(users);
+    const RESPONSE = await fetch(`/api/auth/users?page=${page}`);
+    const USERS = await RESPONSE.json();
+    setUsers(USERS);
   }
 
   /**
-   * getUsersLast24Hours
-   * @return {Promise<void>}
+   * getUsersLastXDays
+   * @param {number} days
+   * @return {Promise<number>} return number of users with \
+   *    active sessions in time period
    */
-  async function getUsersLast24Hours() {
-    const now = moment().utc().format();
-    const dayAgo = moment().utc().subtract(1, 'days').format();
-    const url = `/api/auth/users/active-sessions?from=${dayAgo}&to=${now}`;
-    const usersLast24Hours = await fetch(url);
-    const usersLast24HoursTotal = await usersLast24Hours.json();
-    setUsersLast24HoursTotal(usersLast24HoursTotal);
-  }
-
-  /**
-   * getUsersLast7Days
-   * @return {Promise<void>}
-   */
-  async function getUsersLast7Days() {
-    const now = moment().utc().format();
-    const weekAgo = moment().utc().subtract(7, 'days').format();
-    const url = `/api/auth/users/active-sessions?from=${weekAgo}&to=${now}`;
-    const usersLast7Days = await fetch(url);
-    const usersLast7DaysTotal = await usersLast7Days.json();
-    setUsersLast7DaysTotal(usersLast7DaysTotal);
+  async function getUsersLastXDays(days: number): Promise<number> {
+    const NOW = moment().utc().format();
+    const DAYS_AGO = moment().utc().subtract(days, 'days').format();
+    const URL = `/api/auth/users/active_sessions?from=${DAYS_AGO}&to=${NOW}`;
+    const USERS_LAST_X_DAYS = await fetch(URL);
+    return await USERS_LAST_X_DAYS.json();
   }
 
   return (
@@ -64,15 +54,15 @@ export default function UserTableComponent() {
       <div className="row" style={{paddingTop: '30px'}}>
         <h3>Stats</h3>
         <div className="col-4" style={{textAlign: 'center'}}>
-          Total Number of Users Signed Up: <b>{users.total}</b>
+          Total Number of Users Signed Up: <b>{USERS.total}</b>
         </div>
         <div className="col-4" style={{textAlign: 'center'}}>
           Users With Active Sessions in the Last 24 Hours:
-          <b> {usersLast24HoursTotal}</b>
+          <b> {USERS_24_HOURS}</b>
         </div>
         <div className="col-4" style={{textAlign: 'center'}}>
           Users With Active Sessions in the Last 7 days:
-          <b> {usersLast7DaysTotal}</b>
+          <b> {USERS_7_DAYS}</b>
         </div>
       </div>
       <div className="row">
@@ -90,7 +80,7 @@ export default function UserTableComponent() {
             </thead>
             <tbody>
               {
-                users?.users?.map((user: any) => {
+                USERS?.users?.map((user: any) => {
                   return (
                     <tr key={user.user_id}>
                       <td>{user.name}</td>
@@ -123,8 +113,8 @@ export default function UserTableComponent() {
           <nav aria-label="Page navigation example">
             <ul className="pagination">
               {
-                users.total ?
-                  [...Array(Math.ceil(users.total / 50))]
+                USERS.total ?
+                  [...Array(Math.ceil(USERS.total / 50))]
                       .map((e, i) => {
                         return (
                           <li key={i} className="page-item">

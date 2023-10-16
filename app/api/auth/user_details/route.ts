@@ -4,20 +4,21 @@
  * @constructor
  */
 export async function GET(request: Request) {
-  const url = new URL(request.url);
-  const userId = url.searchParams.get('userId');
+  const PARSED_URL = new URL(request.url);
+  const USER_ID = PARSED_URL.searchParams.get('userId');
 
-  const response = await fetch(`${process.env.AUTH0_AUDIENCE}users/${userId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
-      'Accept': 'application/json',
+  const RESPONSE = await fetch(
+      `${process.env.AUTH0_AUDIENCE}users/${USER_ID}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
+          'Accept': 'application/json',
+        },
+      });
 
-    },
-  });
+  const RESPONSE_JSON = await RESPONSE.json();
 
-  const res = await response.json();
-
-  return Response.json(res, {status: res.statusCode});
+  return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
 }

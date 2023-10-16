@@ -5,27 +5,27 @@
  */
 export async function POST(request: Request) {
   // read userId from fetch request body
-  const body = await request.json();
+  const BODY = await request.json();
 
-  const data = {
+  const DATA = {
     'client_id': process.env.AUTH0_CLIENT_ID,
-    'user_id': body.userId || '',
+    'user_id': BODY.userId || '',
     'identity': {
-      'user_id': body.userId.replace('auth0|', ''),
+      'user_id': BODY.userId.replace('auth0|', ''),
       'provider': 'auth0',
     },
   };
-  const url = `${process.env.AUTH0_AUDIENCE}jobs/verification-email`;
-  const response = await fetch(url, {
+  const URL = `${process.env.AUTH0_AUDIENCE}jobs/verification_email`;
+  const RESPONSE = await fetch(URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(DATA),
   });
 
-  const res = await response.json();
+  const RESPONSE_JSON = await RESPONSE.json();
 
-  return Response.json(res, {status: res.statusCode});
+  return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
 }
