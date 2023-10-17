@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import {PasswordProps} from '../components/client/password_update_component';
 
 const COMPONENT_URI = '@/app/components/client/password-update-component';
-let PasswordUpdateComponent = dynamic<PasswordProps>(
+const PasswordUpdateComponent = dynamic<PasswordProps>(
     () => import(COMPONENT_URI), {ssr: false}
 );
 
