@@ -9,7 +9,8 @@ export async function GET(request: Request) {
   const TO = PARSED_URL.searchParams.get('to');
   const URI = process.env.AUTH0_AUDIENCE +
       'users?q=last_login:[' + FROM + ' TO ' + TO +
-      ']&search_engine=v3&include_totals=true';
+      '] AND identities.connection:"' + process.env.AUTH0_CONNECTION +
+      '"&search_engine=v3&include_totals=true';
 
   const RESPONSE = await fetch(URI, {
     method: 'GET',

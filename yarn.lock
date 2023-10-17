@@ -1905,7 +1905,7 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@popperjs/core@^2.11.8":
+"@popperjs/core@^2.11.8", "@popperjs/core@^2.9.2":
   version "2.11.8"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
@@ -2248,6 +2248,13 @@
   integrity sha512-ojlGK1Hsfce93J0+kn3H5R73elidKUaZonirN33GSmgTUMpzI/MIFfSpF3haANe3G1bEBS9/9/QEqwTzwqFsKw==
   dependencies:
     "@babel/types" "^7.20.7"
+
+"@types/bootstrap@^5.2.7":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@types/bootstrap/-/bootstrap-5.2.7.tgz#a920df4ea82d8cc605751007f5c9744336842f30"
+  integrity sha512-vWs0HzobIB8Af2F0B1GXpaVLSVn1NWULDYgTIWp08Et/r2B3aAwwhFBeOs/rRFWJA38EZTXkWP3tepIjpQkpLg==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
 
 "@types/eslint@^7.29.0":
   version "7.29.0"

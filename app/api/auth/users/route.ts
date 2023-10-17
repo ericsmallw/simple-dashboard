@@ -7,7 +7,9 @@ export async function GET(request: Request) {
   const PARSED_URL = new URL(request.url);
   const PAGE = PARSED_URL.searchParams.get('page') || 0;
   const URI = process.env.AUTH0_AUDIENCE +
-      'users?q=&search_engine=v3&page=' +
+      'users?q=identities.connection:"'+
+      process.env.AUTH0_CONNECTION +
+      '"&search_engine=v3&page=' +
       PAGE + '&include_totals=true';
   const RESPONSE = await fetch(URI, {
     method: 'GET',
