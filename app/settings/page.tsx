@@ -8,7 +8,7 @@ import OnChangeInput from '@/app/components/client/on_change_input';
 import dynamic from 'next/dynamic';
 import {PasswordProps} from '../components/client/password_update_component';
 
-const COMPONENT_URI = '@/app/components/client/password-update-component';
+const COMPONENT_URI = '@/app/components/client/password_update_component';
 const PasswordUpdateComponent = dynamic<PasswordProps>(
     () => import(COMPONENT_URI), {ssr: false}
 );
