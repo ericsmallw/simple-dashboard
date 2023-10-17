@@ -21,6 +21,6 @@ export async function GET(request: Request) {
   });
 
   const RESPONSE_JSON = await RESPONSE.json();
-
+  // return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
   return Response.json(RESPONSE_JSON.total, {status: RESPONSE_JSON.statusCode});
 }
