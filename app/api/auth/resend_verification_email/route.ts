@@ -31,6 +31,7 @@ export async function POST(request: Request) {
       'provider': 'auth0',
     },
   };
+  console.log('DATA: ', DATA);
   const URL = `${process.env.AUTH0_AUDIENCE}jobs/verification_email`;
   const RESPONSE = await fetch(URL, {
     method: 'POST',
