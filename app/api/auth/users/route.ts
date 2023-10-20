@@ -1,7 +1,12 @@
+// eslint-disable-next-line valid-jsdoc
 /**
- * Get users
- * @param {Request} request
- * @constructor
+ * @swagger
+ * /api/auth/users:
+ *   get:
+ *     description: Get all users from Auth0
+ *     responses:
+ *       200:
+ *         description: OK!
  */
 export async function GET(request: Request) {
   const PARSED_URL = new URL(request.url);
@@ -21,6 +26,5 @@ export async function GET(request: Request) {
   });
 
   const RESPONSE_JSON = await RESPONSE.json();
-
   return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
 }

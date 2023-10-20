@@ -46,10 +46,15 @@ export default async function RootLayout({
                       <a href="settings"
                         style={{paddingRight: '15px', color: 'white'}}
                       >
-                        <i className="bi-gear"></i>
+                        <abbr title="settings">
+                          <i className="bi-gear"></i>
+                        </abbr>
                       </a>
+
                       <a href="/api/auth/logout" style={{color: 'white'}}>
-                        <i className="bi-power"></i>
+                        <abbr title="logout">
+                          <i className="bi-power"></i>
+                        </abbr>
                       </a>
                     </div>
                   </> :

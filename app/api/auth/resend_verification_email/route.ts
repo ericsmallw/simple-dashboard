@@ -1,7 +1,23 @@
+// eslint-disable-next-line valid-jsdoc
 /**
- * Resend verification email
- * @param {Request} request
- * @constructor
+ * @swagger
+ * /api/auth/resend_verification_email:
+ *   post:
+ *     description: Resend verification email in Auth0
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 example: auth0|6523516e83972709b5769e4e
+ *             required:
+ *               - userId
+ *     responses:
+ *       200:
+ *         description: OK!
  */
 export async function POST(request: Request) {
   // read userId from fetch request body

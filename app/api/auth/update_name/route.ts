@@ -1,7 +1,27 @@
+// eslint-disable-next-line valid-jsdoc
 /**
- * Update user name
- * @param {Request} request
- * @constructor
+ * @swagger
+ * /api/auth/update_name:
+ *   patch:
+ *     description: Update user name in Auth0
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 example: auth0|6523516e83972709b5769e4e
+ *               name:
+ *                 type: string
+ *                 example: John Doe
+ *             required:
+ *               - userId
+ *               - name
+ *     responses:
+ *       200:
+ *         description: OK!
  */
 export async function PATCH(request: Request) {
   const BODY = await request.json();

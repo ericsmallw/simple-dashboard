@@ -26,33 +26,34 @@ export default function PasswordUpdateComponent(props: PasswordProps) {
    * @return {Promise<void>}
    */
   async function handlePasswordUpdate() {
+    const ERRORS = [];
+
     if (NEW_PASSWORD_1 !== NEW_PASSWORD_2) {
-      alert('Passwords do not match.');
-      return;
+      ERRORS.push('Passwords do not match.');
     }
 
     if (NEW_PASSWORD_1.length < 8) {
-      alert('Password must be at least 8 characters long.');
-      return;
+      ERRORS.push('Password must be at least 8 characters long.');
     }
 
     if (!/\d/.test(NEW_PASSWORD_1)) {
-      alert('Password must contain at least one number.');
-      return;
+      ERRORS.push('Password must contain at least one number.');
     }
 
     if (!/[a-z]/.test(NEW_PASSWORD_1)) {
-      alert('Password must contain at least one lower case letter.');
-      return;
+      ERRORS.push('Password must contain at least one lower case letter.');
     }
 
     if (!/[A-Z]/.test(NEW_PASSWORD_1)) {
-      alert('Password must contain at least one upper case letter.');
-      return;
+      ERRORS.push('Password must contain at least one upper case letter.');
     }
 
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(NEW_PASSWORD_1)) {
-      alert('Password must contain at least one special character.');
+      ERRORS.push('Password must contain at least one special character.');
+    }
+
+    if (ERRORS.length > 0) {
+      alert(ERRORS.join('\n'));
       return;
     }
 
