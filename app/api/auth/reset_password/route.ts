@@ -1,3 +1,4 @@
+// eslint-disable-next-line valid-jsdoc
 /**
  * @swagger
  * /api/auth/reset_password:
