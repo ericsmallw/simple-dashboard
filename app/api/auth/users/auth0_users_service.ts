@@ -37,7 +37,7 @@ export default class Auth0UsersService implements UsersService {
    * @param {Date} to
    * @return {Promise<any>}
    */
-  async getLoggedInUsersInDateRange(from: Date, to: Date): Promise<any> {
+  async getLoggedInUsersInDateRange(from: string, to: string): Promise<any> {
     const URI = process.env.AUTH0_AUDIENCE +
         'users?q=last_login:[' + moment.utc(from).format() +
         ' TO ' + moment.utc(to).format() +
