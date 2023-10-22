@@ -26,4 +26,14 @@ export default class UsersBusinessManager {
   getUsers(page: number) {
     return this._usersService.getUsers(page);
   }
+
+  /**
+   * @description Get number of logged in users in a date range
+   * @param {Date} from
+   * @param {Date} to
+   * @return {Promise<any>}
+   */
+  getLoggedInUsersInDateRange(from: string, to: string) {
+    return this._usersService.getLoggedInUsersInDateRange(from, to);
+  }
 }

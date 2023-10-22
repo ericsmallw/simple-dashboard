@@ -1,5 +1,6 @@
 import {UsersService} from '@/app/api/auth/users/users_service';
 import {injectable} from 'tsyringe';
+import moment from 'moment';
 
 @injectable()
 /**
@@ -28,5 +29,35 @@ export default class Auth0UsersService implements UsersService {
 
     const RESPONSE_JSON = await RESPONSE.json();
     return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
+  }
+
+  /**
+   * @description Get number of logged in users in a date range
+   * @param {Date} from
+   * @param {Date} to
+   * @return {Promise<any>}
+   */
+  async getLoggedInUsersInDateRange(from: Date, to: Date): Promise<any> {
+    const URI = process.env.AUTH0_AUDIENCE +
+        'users?q=last_login:[' + moment.utc(from).format() +
+        ' TO ' + moment.utc(to).format() +
+        '] AND identities.connection:"' + process.env.AUTH0_CONNECTION +
+        '"&search_engine=v3&include_totals=true';
+    console.log('*****' + URI);
+
+    const RESPONSE = await fetch(URI, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
+        'Accept': 'application/json',
+      },
+    });
+
+    const RESPONSE_JSON = await RESPONSE.json();
+    return Response.json(
+        RESPONSE_JSON.total,
+        {status: RESPONSE_JSON.statusCode}
+    );
   }
 }
