@@ -1,4 +1,3 @@
-// eslint-disable-next-line valid-jsdoc
 /**
  * @swagger
  * /api/auth/resend_verification_email:
@@ -19,30 +18,27 @@
  *       200:
  *         description: OK!
  */
+
+import 'reflect-metadata';
+import {container} from 'tsyringe';
+import ResendEmailBusinessManager from './resend_email_business_manager';
+import Auth0ResendEmailService from './auth0_resend_email_service';
+
+container.register('ResendEmailService', Auth0ResendEmailService);
+/**
+ * Resend verification email in Auth0
+ * @param {Request} request
+ * @constructor
+ */
 export async function POST(request: Request) {
-  // read userId from fetch request body
   const BODY = await request.json();
 
-  const DATA = {
-    'client_id': process.env.AUTH0_CLIENT_ID,
-    'user_id': BODY.userId || '',
-    'identity': {
-      'user_id': BODY.userId.replace('auth0|', ''),
-      'provider': 'auth0',
-    },
-  };
-  console.log('DATA: ', DATA);
-  const URL = `${process.env.AUTH0_AUDIENCE}jobs/verification_email`;
-  const RESPONSE = await fetch(URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
-    },
-    body: JSON.stringify(DATA),
-  });
+  if (!BODY.userId) {
+    return Response.json({error: 'Missing required fields'}, {status: 400});
+  }
 
-  const RESPONSE_JSON = await RESPONSE.json();
+  const resendEmailBusinessManager =
+      container.resolve(ResendEmailBusinessManager);
 
-  return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
+  return resendEmailBusinessManager.resendEmail(BODY.userId);
 }

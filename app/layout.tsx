@@ -5,6 +5,8 @@ import type {Metadata} from 'next';
 import {Inter} from 'next/font/google';
 import {UserProvider} from '@auth0/nextjs-auth0/client';
 import {getSession} from '@auth0/nextjs-auth0';
+import 'reflect-metadata';
+
 
 // eslint-disable-next-line new-cap
 const INTER = Inter({subsets: ['latin']});

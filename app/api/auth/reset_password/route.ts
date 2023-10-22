@@ -36,6 +36,24 @@
  *       200:
  *         description: OK!
  */
+
+import {container} from 'tsyringe';
+import ResetPasswordBusinessManager
+  from '@/app/api/auth/reset_password/reset_password_business_manager';
+import VerifyPasswordBusinessManager
+  from '@/app/api/auth/verify_password/verify_password_business_manager';
+import Auth0ResetPasswordService from './auth0_reset_password_service';
+import Auth0VerifyPasswordService
+  from './../verify_password/auth0_verify_password_service';
+
+container.register('ResetPasswordService', Auth0ResetPasswordService);
+container.register('VerifyPasswordService', Auth0VerifyPasswordService);
+
+/**
+ * @description Reset user password in Auth0
+ * @param {Request} request
+ * @constructor
+ */
 export async function PATCH(request: Request) {
   const BODY = await request.json();
   if (
@@ -48,73 +66,23 @@ export async function PATCH(request: Request) {
     return Response.json({error: 'Missing required fields'}, {status: 400});
   }
 
-  const ERRORS: string[] = [];
+  const verifyPasswordBusinessManager =
+      container.resolve(VerifyPasswordBusinessManager);
 
-  if (BODY.newPassword !== BODY.newPasswordAgain) {
-    ERRORS.push('New passwords do not match');
+  const VERIFY_RESULT = await verifyPasswordBusinessManager.verifyPassword(
+      {email: BODY.email, password: BODY.oldPassword}
+  );
+
+  // If the old password is incorrect, return an error
+  if (VERIFY_RESULT.error) {
+    return Response.json({error: VERIFY_RESULT.error}, {status: 400});
   }
 
-  if (BODY.newPassword.length < 8) {
-    ERRORS.push('New password must be at least 8 characters long');
-  }
+  const resetPasswordBusinessManager =
+      container.resolve(ResetPasswordBusinessManager);
 
-  if (!/\d/.test(BODY.newPassword)) {
-    ERRORS.push('New password must contain at least 1 number');
-  }
-
-  if (!/[A-Z]/.test(BODY.newPassword)) {
-    ERRORS.push('New password must contain at least 1 uppercase letter');
-  }
-
-  if (!/[a-z]/.test(BODY.newPassword)) {
-    ERRORS.push('New password must contain at least 1 lowercase letter');
-  }
-
-  if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(BODY.newPassword)) {
-    ERRORS.push('New password must contain at least 1 special character');
-  }
-
-  if (ERRORS.length > 0) {
-    return Response.json({error: ERRORS}, {status: 400});
-  }
-
-  const PASS_RESPONSE = await fetch(`${process.env.AUTH0_DOMAIN}oauth/token`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      grant_type: 'password',
-      username: BODY.email,
-      password: BODY.oldPassword,
-      audience: process.env.AUTH0_AUDIENCE,
-      scope: 'openid profile email',
-      client_id: process.env.AUTH0_CLIENT_ID,
-      client_secret: process.env.AUTH0_CLIENT_SECRET,
-    }),
-  });
-
-  const PASS_RES_BODY = await PASS_RESPONSE.json();
-
-  if (PASS_RES_BODY.error) {
-    return Response.json(PASS_RES_BODY, {status: PASS_RES_BODY.statusCode});
-  }
-
-  const URL = `${process.env.AUTH0_AUDIENCE}users/${BODY.userId}`;
-  const RESPONSE = await fetch(URL, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
-      'Accept': 'application/json',
-    },
-    body: JSON.stringify({
-      password: BODY.newPassword,
-      connection: 'Simple-Dashboard-Connection',
-    }),
-  });
-
-  const RESPONSE_JSON = await RESPONSE.json();
+  const RESPONSE_JSON =
+      await resetPasswordBusinessManager.resetPassword(BODY);
 
   return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
 }
