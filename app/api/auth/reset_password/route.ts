@@ -37,11 +37,11 @@
  *         description: OK!
  */
 
+import 'reflect-metadata';
 import {container} from 'tsyringe';
-import ResetPasswordBusinessManager
-  from '@/app/api/auth/reset_password/reset_password_business_manager';
+import ResetPasswordBusinessManager from './reset_password_business_manager';
 import VerifyPasswordBusinessManager
-  from '@/app/api/auth/verify_password/verify_password_business_manager';
+  from './../verify_password/verify_password_business_manager';
 import Auth0ResetPasswordService from './auth0_reset_password_service';
 import Auth0VerifyPasswordService
   from './../verify_password/auth0_verify_password_service';
