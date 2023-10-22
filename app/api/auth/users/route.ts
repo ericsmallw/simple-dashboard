@@ -10,7 +10,7 @@
 
 import {container} from 'tsyringe';
 import Auth0UsersService from './auth0_users_service';
-import UsersBusinessManager from "@/app/api/auth/users/users_business_manager";
+import UsersBusinessManager from './users_business_manager';
 
 container.register('UsersService', Auth0UsersService);
 
