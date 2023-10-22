@@ -1,4 +1,3 @@
-// eslint-disable-next-line valid-jsdoc
 /**
  * @swagger
  * /api/auth/users:
@@ -8,23 +7,22 @@
  *       200:
  *         description: OK!
  */
+
+import {container} from 'tsyringe';
+import Auth0UsersService from './auth0_users_service';
+import UsersBusinessManager from "@/app/api/auth/users/users_business_manager";
+
+container.register('UsersService', Auth0UsersService);
+
+/**
+ * Get all users
+ * @param {Request} request
+ * @constructor
+ */
 export async function GET(request: Request) {
   const PARSED_URL = new URL(request.url);
-  const PAGE = PARSED_URL.searchParams.get('page') || 0;
-  const URI = process.env.AUTH0_AUDIENCE +
-      'users?q=identities.connection:"'+
-      process.env.AUTH0_CONNECTION +
-      '"&search_engine=v3&page=' +
-      PAGE + '&include_totals=true';
-  const RESPONSE = await fetch(URI, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `bearer ${process.env.AUTH0_TOKEN}`,
-      'Accept': 'application/json',
-    },
-  });
+  const PAGE = PARSED_URL.searchParams.get('page') || '0';
 
-  const RESPONSE_JSON = await RESPONSE.json();
-  return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
+  const usersBusinessManager = container.resolve(UsersBusinessManager);
+  return await usersBusinessManager.getUsers(parseInt(PAGE));
 }
