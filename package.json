@@ -2,6 +2,15 @@
   "name": "simple-dashboard",
   "version": "0.1.0",
   "private": true,
+  "eslintIgnore": [
+    "node_modules",
+    "build",
+    "coverage",
+    "out",
+    "public",
+    "tailwind.config.js",
+    "*.spec.ts"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {ResendEmailService} from './resend_email_service';
 import {injectable} from 'tsyringe';
 
@@ -6,11 +7,10 @@ import {injectable} from 'tsyringe';
  * @description Concrete implementation of ResendEmailService which uses Auth0
  */
 export default class Auth0ResendEmailService implements ResendEmailService {
-  // eslint-disable-next-line valid-jsdoc
   /**
    * @description Resend verification email in Auth0
-   * @param userId
-   * @return
+   * @param {string} userId
+   * @return {Promise<any>}
    */
   async resendEmail(userId: string): Promise<any> {
     const DATA = {
@@ -37,4 +37,5 @@ export default class Auth0ResendEmailService implements ResendEmailService {
     return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
   }
 }
+
 

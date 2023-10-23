@@ -25,6 +25,7 @@ import ResendEmailBusinessManager from './resend_email_business_manager';
 import Auth0ResendEmailService from './auth0_resend_email_service';
 
 container.register('ResendEmailService', Auth0ResendEmailService);
+
 /**
  * Resend verification email in Auth0
  * @param {Request} request
@@ -42,3 +43,6 @@ export async function POST(request: Request) {
 
   return resendEmailBusinessManager.resendEmail(BODY.userId);
 }
+
+
+

@@ -19,11 +19,10 @@ export default class ResendEmailBusinessManager {
     this._resendEmailService = resendEmailService;
   }
 
-  // eslint-disable-next-line valid-jsdoc
   /**
    * @description Resend verification email in Auth0
-   * @param userId - Auth0 user ID
-   * @return
+   * @param {string} userId - Auth0 user ID
+   * @return {Promise<any>}
    */
   resendEmail(userId: string) {
     return this._resendEmailService.resendEmail(userId);

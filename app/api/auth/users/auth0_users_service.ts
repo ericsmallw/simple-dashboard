@@ -32,9 +32,9 @@ export default class Auth0UsersService implements UsersService {
   }
 
   /**
-   * @description Get number of logged in users in a date range
-   * @param {Date} from
-   * @param {Date} to
+   * @description Get number of logged-in users in a date range
+   * @param {string} from
+   * @param {string} to
    * @return {Promise<any>}
    */
   async getLoggedInUsersInDateRange(from: string, to: string): Promise<any> {
