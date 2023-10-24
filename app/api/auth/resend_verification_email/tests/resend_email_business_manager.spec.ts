@@ -1,9 +1,14 @@
 import 'reflect-metadata';
 import {container} from 'tsyringe';
-import ResendEmailBusinessManager from './../../resend_email_business_manager';
-import Auth0ResendEmailService from './../../auth0_resend_email_service';
+import ResendEmailBusinessManager from './../resend_email_business_manager';
+import Auth0ResendEmailService from './../auth0_resend_email_service';
+import restoreAllMocks = jest.restoreAllMocks;
 
 describe('ResendEmailBusinessManger', () => {
+    afterAll(() => {
+       restoreAllMocks();
+    });
+
     container.register('ResendEmailService', Auth0ResendEmailService);
     const resendEmailSpy = jest.spyOn(Auth0ResendEmailService.prototype, 'resendEmail').mockImplementation((...args: unknown[]): Promise<any> => {
         return new Promise((resolve, reject) => {

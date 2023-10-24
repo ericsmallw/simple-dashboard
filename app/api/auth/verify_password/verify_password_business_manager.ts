@@ -27,7 +27,6 @@ export default class VerifyPasswordBusinessManager {
    * @return {Promise<any>}
    **/
   verifyPassword(verifyPasswordRequest: VerifyPasswordRequest) {
-    console.log('*****2');
     return this._verifyPasswordService.verifyPassword(verifyPasswordRequest);
   }
 }

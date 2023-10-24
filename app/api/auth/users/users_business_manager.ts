@@ -34,6 +34,15 @@ export default class UsersBusinessManager {
    * @return {Promise<any>}
    */
   getLoggedInUsersInDateRange(from: string, to: string) {
+    const FROM = new Date(from);
+    const TO = new Date(to);
+    if (
+      FROM.toString() === 'Invalid Date' ||
+      TO.toString() === 'Invalid Date'
+    ) {
+      return Response.json({error: 'Invalid date'}, {status: 400});
+    }
+
     return this._usersService.getLoggedInUsersInDateRange(from, to);
   }
 }

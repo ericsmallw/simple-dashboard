@@ -13,7 +13,6 @@ class Auth0VerifyPasswordService implements VerifyPasswordService {
    * @return {Promise<any>}
    **/
   async verifyPassword(request: VerifyPasswordRequest): Promise<any> {
-    console.log('*****3');
     const URL = `${process.env.AUTH0_DOMAIN}oauth/token`;
     const PASS_RESPONSE = await fetch(URL, {
       method: 'POST',

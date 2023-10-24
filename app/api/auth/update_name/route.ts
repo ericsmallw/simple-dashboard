@@ -26,6 +26,7 @@
 import 'reflect-metadata';
 import {container} from 'tsyringe';
 import Auth0UpdateNameService from './auth0_update_name_service';
+import UpdateNameBusinessManager from './update_name_business_manager';
 
 container.register('UpdateNameService', Auth0UpdateNameService);
 
@@ -41,8 +42,9 @@ export async function PATCH(request: Request) {
     return Response.json({error: 'Missing required fields'}, {status: 400});
   }
 
-  const updateNameService = container.resolve(Auth0UpdateNameService);
-  return await updateNameService.updateName(BODY);
+  const updateNameBusinessManager =
+      container.resolve(UpdateNameBusinessManager);
+  return await updateNameBusinessManager.updateName(BODY.name);
 }
 
 

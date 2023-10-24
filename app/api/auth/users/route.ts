@@ -7,7 +7,7 @@
  *       200:
  *         description: OK!
  */
-
+import 'reflect-metadata';
 import {container} from 'tsyringe';
 import Auth0UsersService from './auth0_users_service';
 import UsersBusinessManager from './users_business_manager';

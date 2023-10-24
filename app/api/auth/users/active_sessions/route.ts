@@ -24,10 +24,10 @@
  *       200:
  *         description: OK!
  */
-
+import 'reflect-metadata';
 import {container} from 'tsyringe';
-import UsersBusinessManager from '@/app/api/auth/users/users_business_manager';
-import Auth0UsersService from '@/app/api/auth/users/auth0_users_service';
+import UsersBusinessManager from './../users_business_manager';
+import Auth0UsersService from './../auth0_users_service';
 
 container.register('UsersService', Auth0UsersService);
 

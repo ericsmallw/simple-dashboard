@@ -13,7 +13,6 @@ export default class Auth0ResetPasswordService implements ResetPasswordService {
    * @return {Promise<any>}
    **/
   async resetPassword(request: ResetPasswordRequest): Promise<any> {
-    console.log('*****4');
     const URL = `${process.env.AUTH0_AUDIENCE}users/${request.userId}`;
 
     const RESPONSE = await fetch(URL, {

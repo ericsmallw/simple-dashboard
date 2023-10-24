@@ -18,6 +18,7 @@ export default class Auth0UsersService implements UsersService {
       process.env.AUTH0_CONNECTION +
       '"&search_engine=v3&page=' +
       page + '&include_totals=true';
+
     const RESPONSE = await fetch(URI, {
       method: 'GET',
       headers: {
@@ -28,6 +29,7 @@ export default class Auth0UsersService implements UsersService {
     });
 
     const RESPONSE_JSON = await RESPONSE.json();
+
     return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
   }
 
@@ -43,7 +45,6 @@ export default class Auth0UsersService implements UsersService {
         ' TO ' + moment.utc(to).format() +
         '] AND identities.connection:"' + process.env.AUTH0_CONNECTION +
         '"&search_engine=v3&include_totals=true';
-    console.log('*****' + URI);
 
     const RESPONSE = await fetch(URI, {
       method: 'GET',
@@ -55,6 +56,7 @@ export default class Auth0UsersService implements UsersService {
     });
 
     const RESPONSE_JSON = await RESPONSE.json();
+
     return Response.json(
         RESPONSE_JSON.total,
         {status: RESPONSE_JSON.statusCode}

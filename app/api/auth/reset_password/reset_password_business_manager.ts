@@ -26,7 +26,6 @@ export default class ResetPasswordBusinessManager {
    * @return {Promise<any>}
    **/
   async resetPassword(request: ResetPasswordRequest): Promise<any> {
-    console.log('*****1');
     const ERRORS = this.verifyRequest(request);
     if (ERRORS.length > 0) {
       return Response.json({error: ERRORS}, {status: 400});

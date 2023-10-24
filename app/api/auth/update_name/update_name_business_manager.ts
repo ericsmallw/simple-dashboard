@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import {inject, injectable} from 'tsyringe';
 import type {UpdateNameService} from './update_name_service';
 import UpdateNameRequest from '@/app/models/update_name_request';
