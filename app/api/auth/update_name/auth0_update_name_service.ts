@@ -13,6 +13,7 @@ export default class Auth0UpdateNameService implements UpdateNameService {
    * @return {Promise<any>}
    */
   async updateName(request: UpdateNameRequest): Promise<any> {
+    console.log(request.userId);
     const URL = `${process.env.AUTH0_AUDIENCE}users/${request.userId}`;
     const RESPONSE = await fetch(URL, {
       method: 'PATCH',
@@ -27,6 +28,8 @@ export default class Auth0UpdateNameService implements UpdateNameService {
     });
 
     const RESPONSE_JSON = await RESPONSE.json();
+
+    console.log(RESPONSE_JSON);
 
     return Response.json(RESPONSE_JSON, {status: RESPONSE_JSON.statusCode});
   }

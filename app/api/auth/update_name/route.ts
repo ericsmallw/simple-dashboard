@@ -37,14 +37,17 @@ container.register('UpdateNameService', Auth0UpdateNameService);
  */
 export async function PATCH(request: Request) {
   const BODY = await request.json();
-
-  if (!BODY.name) {
+  console.log(0);
+  if (!BODY.name || !BODY.userId) {
     return Response.json({error: 'Missing required fields'}, {status: 400});
   }
 
   const updateNameBusinessManager =
       container.resolve(UpdateNameBusinessManager);
-  return await updateNameBusinessManager.updateName(BODY.name);
+  return await updateNameBusinessManager.updateName({
+    name: BODY.name,
+    userId: BODY.userId,
+  });
 }
 
 

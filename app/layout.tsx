@@ -41,24 +41,41 @@ export default async function RootLayout({
               SESSION?.user?
                   <>
                     <div className="col-11">Hello {SESSION.user.name}</div>
-                    <div
-                      className="col"
-                      style={{textAlign: 'right'}}
-                    >
-                      <a href="settings"
-                        style={{paddingRight: '15px', color: 'white'}}
-                      >
-                        <abbr title="settings">
-                          <i className="bi-gear"></i>
-                        </abbr>
-                      </a>
+                    {
+                      SESSION.user.email_verified ?
+                          <div
+                            className="col"
+                            style={{textAlign: 'right'}}
+                          >
+                            <a href="/"
+                              style={{paddingRight: '15px', color: 'white'}}
+                            >
+                              <abbr
+                                title="dashboard"
+                                style={{cursor: 'pointer'}}
+                              >
+                                <i className="bi-house"></i>
+                              </abbr>
+                            </a>
+                            <a href="settings"
+                              style={{paddingRight: '15px', color: 'white'}}
+                            >
+                              <abbr
+                                title="user profile"
+                                style={{cursor: 'pointer'}}
+                              >
+                                <i className="bi-person"></i>
+                              </abbr>
+                            </a>
 
-                      <a href="/api/auth/logout" style={{color: 'white'}}>
-                        <abbr title="logout">
-                          <i className="bi-power"></i>
-                        </abbr>
-                      </a>
-                    </div>
+                            <a href="/api/auth/logout" style={{color: 'white'}}>
+                              <abbr title="logout" style={{cursor: 'pointer'}}>
+                                <i className="bi-power"></i>
+                              </abbr>
+                            </a>
+                          </div> :
+                          <></>
+                    }
                   </> :
                   <div></div>
             }

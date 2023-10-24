@@ -35,9 +35,11 @@ export default function ResendEmailVerificationButton(
   };
 
   return (
-    <BasicButton
-      eventHandler={handleResendEmailVerification}
-      buttonText={'Resend Email Verification'}
-      class={''}/>
+    <div style={{padding: '30px'}}>
+      <BasicButton
+        eventHandler={handleResendEmailVerification}
+        buttonText={'Resend Email Verification'}
+        class={'btn btn-primary'}/>
+    </div>
   );
 }
