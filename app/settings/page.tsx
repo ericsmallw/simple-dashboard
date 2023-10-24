@@ -55,10 +55,14 @@ export default withPageAuthRequired(async function Dashboard() {
             updateSession={updateAuth0Session}
           />
         </div>
-        <PasswordUpdateComponent
-          email={SESSION?.user.email}
-          userId={SESSION?.user.sub}
-        />
+        {
+          SESSION?.user.sub.indexOf('google') >= 0 ?
+              <></> :
+              <PasswordUpdateComponent
+                email={SESSION?.user.email}
+                userId={SESSION?.user.sub}
+              />
+        }
       </div>
     </div>
   );

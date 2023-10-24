@@ -14,9 +14,10 @@ export default class Auth0UsersService implements UsersService {
    */
   async getUsers(page: number): Promise<any> {
     const URI = process.env.AUTH0_AUDIENCE +
-      'users?q=identities.connection:"'+
+      'users?q=identities.connection:'+
       process.env.AUTH0_CONNECTION +
-      '"&search_engine=v3&page=' +
+      ' OR identities.connection:google-oauth2' +
+      '&search_engine=v3&page=' +
       page + '&include_totals=true';
 
     const RESPONSE = await fetch(URI, {
@@ -43,8 +44,9 @@ export default class Auth0UsersService implements UsersService {
     const URI = process.env.AUTH0_AUDIENCE +
         'users?q=last_login:[' + moment.utc(from).format() +
         ' TO ' + moment.utc(to).format() +
-        '] AND identities.connection:"' + process.env.AUTH0_CONNECTION +
-        '"&search_engine=v3&include_totals=true';
+        '] AND (identities.connection:' + process.env.AUTH0_CONNECTION +
+        ' OR identities.connection:google-oauth2)' +
+        '&search_engine=v3&include_totals=true';
 
     const RESPONSE = await fetch(URI, {
       method: 'GET',
