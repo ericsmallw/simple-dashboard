@@ -3,6 +3,12 @@ import {GET} from '../route';
 import UsersBusinessManager from './../users_business_manager';
 
 describe('User Route', () => {
+    afterAll(() => {
+      jest.restoreAllMocks();
+    });
+
+    const BASE_URL = 'https://localhost:3000/api/auth/users';
+
     describe('GET', () => {
         const getUsersSpy = jest.spyOn(UsersBusinessManager.prototype, 'getUsers').mockImplementation((...args: unknown[]): Promise<any> => {
             return new Promise((resolve, reject) => {
@@ -11,7 +17,7 @@ describe('User Route', () => {
         });
 
         it('should not return an error if page is not provided', async () => {
-            const result = await GET(new Request('https://example.com/api/auth/users', {
+            const result = await GET(new Request(BASE_URL, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -22,7 +28,7 @@ describe('User Route', () => {
         });
 
         it('should call getUsers', async () => {
-            await GET(new Request('https://example.com/api/auth/users?page=1', {
+            await GET(new Request(BASE_URL + 'page=1', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

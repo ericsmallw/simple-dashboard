@@ -7,9 +7,11 @@ describe('ResetPassword Route', () => {
       jest.restoreAllMocks();
     });
 
+    const URL = 'https://localhost:3000/api/auth/reset_password';
+
     describe('PATCH', () => {
         it('should return an error if oldPassword is missing from body', async () => {
-            const result = await PATCH(new Request('https://example.com/api/auth/reset_password', {
+            const result = await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,7 +28,7 @@ describe('ResetPassword Route', () => {
         });
 
         it('should return an error if newPassword is missing from body', async () => {
-            const result = await PATCH(new Request('https://example.com/api/auth/reset_password', {
+            const result = await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,7 +45,7 @@ describe('ResetPassword Route', () => {
         });
 
         it('should return an error if newPasswordAgain is missing from body', async () => {
-            const result = await PATCH(new Request('https://example.com/api/auth/reset_password', {
+            const result = await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -60,7 +62,7 @@ describe('ResetPassword Route', () => {
         });
 
         it('should return an error if userId is missing from body', async () => {
-            const result = await PATCH(new Request('https://example.com/api/auth/reset_password', {
+            const result = await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +80,7 @@ describe('ResetPassword Route', () => {
 
         it('should return an error if email is missing from body',
             async () => {
-            const result = await PATCH(new Request('https://example.com/api/auth/reset_password', {
+            const result = await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -108,7 +110,7 @@ describe('ResetPassword Route', () => {
                 });
             });
 
-            await PATCH(new Request('https://example.com/api/auth/reset_password', {
+            await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

@@ -4,6 +4,10 @@ import UpdateNameBusinessManager from './../update_name_business_manager';
 import Auth0UpdateNameService from './../auth0_update_name_service';
 
 describe('Update Name Business Manager', () => {
+    afterAll(() => {
+        jest.restoreAllMocks();
+    });
+
     describe('updateName', () => {
         it('should call updateNameService.updateName', async () => {
             container.register('UpdateNameService', Auth0UpdateNameService);

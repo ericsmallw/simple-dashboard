@@ -3,6 +3,10 @@ import {container} from "tsyringe";
 import Auth0VerifyPasswordService from "./../auth0_verify_password_service";
 
 describe('Verify Password Business Manager', () => {
+    afterAll(() => {
+        jest.restoreAllMocks();
+    });
+
    describe('verifyPassword', () => {
        it(`should call verifyPasswordService.verifyPassword`, async () => {
            container.register('VerifyPasswordService', Auth0VerifyPasswordService);

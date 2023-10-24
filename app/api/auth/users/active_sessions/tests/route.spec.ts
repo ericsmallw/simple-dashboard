@@ -5,9 +5,16 @@ import Auth0UsersService from "./../../auth0_users_service";
 import UsersBusinessManager from "./../../users_business_manager";
 describe('Active Sessions Route', () => {
     container.register('UsersService', Auth0UsersService);
+
+    afterAll(() => {
+        jest.restoreAllMocks();
+    });
+
+    const BASE_URL = 'https://localhost:3000/api/auth/users/';
+
     describe('GET', () => {
         it('should return an error if FROM parameter is not provided', async () => {
-            const result = await GET(new Request('https://example.com/api/auth/users/active_sessions?to=2023-10-31', {
+            const result = await GET(new Request(BASE_URL + 'active_sessions?to=2023-10-31', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -18,7 +25,7 @@ describe('Active Sessions Route', () => {
         });
 
         it('should return an error if TO parameter is not provided', async () => {
-            const result = await GET(new Request('https://example.com/api/auth/users/active_sessions?from=2023-10-01', {
+            const result = await GET(new Request(BASE_URL + 'active_sessions?from=2023-10-01', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +44,7 @@ describe('Active Sessions Route', () => {
                     });
                 });
 
-            await GET(new Request('https://example.com/api/auth/users/active_sessions?from=2023-10-01&to=2023-10-31', {
+            await GET(new Request(BASE_URL + 'active_sessions?from=2023-10-01&to=2023-10-31', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

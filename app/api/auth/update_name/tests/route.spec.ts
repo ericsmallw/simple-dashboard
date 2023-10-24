@@ -1,9 +1,10 @@
 import {PATCH} from '../route';
 import UpdateNameBusinessManager from "./../update_name_business_manager";
 describe('Update Name Route', () => {
+    const URL = 'https://localhost:3000/api/auth/update_name';
    describe('PATCH', () => {
          it('should return an error if name is missing from body', async () => {
-              const result = await PATCH(new Request('https://example.com/api/auth/update_name', {
+              const result = await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                      'Content-Type': 'application/json',
@@ -23,7 +24,7 @@ describe('Update Name Route', () => {
                     });
                 });
 
-            await PATCH(new Request('https://example.com/api/auth/update_name', {
+            await PATCH(new Request(URL, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

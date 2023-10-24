@@ -6,9 +6,10 @@ describe('ResendEmail Route', () => {
         jest.restoreAllMocks();
     });
 
+    const URL = 'https://localhost:3000/api/auth/resend_verification_email';
     describe('POST', () => {
        it('should return an error if userId is missing', async () => {
-           const result = await POST(new Request('https://example.com/api/auth/resend_verification_email', {
+           const result = await POST(new Request(URL, {
                method: 'POST',
                headers: {
                    'Content-Type': 'application/json',
@@ -27,7 +28,7 @@ describe('ResendEmail Route', () => {
                });
            });
 
-           await POST(new Request('https://example.com/api/auth/resend_verification_email', {
+           await POST(new Request(URL, {
                method: 'POST',
                headers: {
                    'Content-Type': 'application/json',
