@@ -44,5 +44,3 @@ export async function POST(request: Request) {
   return resendEmailBusinessManager.resendEmail(BODY.userId);
 }
 
-
-
